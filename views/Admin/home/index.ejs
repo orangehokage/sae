@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Admin</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/logo.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/logo.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/logo.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/logo.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ 
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+      <style>
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: aquamarine; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: aqua; 
+}
+        .c{
+  overflow-x: auto;
+} 
+</style>
+ 
+                    
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+    
+});
+    
+    $(document).ready(function () {
+                $('th').each(function (col) {
+                    $(this).hover(
+                            function () {
+                                $(this).addClass('focus');
+                            },
+                            function () {
+                                $(this).removeClass('focus');
+                            }
+                    );
+                    $(this).click(function () {
+                        if ($(this).is('.asc')) {
+                            $(this).removeClass('asc');
+                            $(this).addClass('desc selected');
+                            sortOrder = -1;
+                        } else {
+                            $(this).addClass('asc selected');
+                            $(this).removeClass('desc');
+                            sortOrder = 1;
+                        }
+                        $(this).siblings().removeClass('asc selected');
+                        $(this).siblings().removeClass('desc selected');
+                        var arrData = $('table').find('tbody >tr:has(td)').get();
+                        arrData.sort(function (a, b) {
+                            var val1 = $(a).children('td').eq(col).text().toUpperCase();
+                            var val2 = $(b).children('td').eq(col).text().toUpperCase();
+                            if ($.isNumeric(val1) && $.isNumeric(val2))
+                                return sortOrder == 1 ? val1 - val2 : val2 - val1;
+                            else
+                                return (val1 < val2) ? -sortOrder : (val1 > val2) ? sortOrder : 0;
+                        });
+                        $.each(arrData, function (index, row) {
+                            $('tbody').append(row);
+                        });
+                    });
+                });
+            });
+</script> </head>
+  <body>
+        
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"> Add a Update</h4>
+        </div>
+        <div class="modal-body">
+   <form method="post" action="/Admin/addupdate">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="namep" required  name="namep">
+    <label class="mdl-textfield__label" for="namep">Title</label>
+  </div>
+           <br>
+
+      <button type="submit" class="mdl-button ok" id = "okC">Ok</button>
+
+        
+        </form>
+
+            
+        </div>
+          </div>
+      
+    </div>
+  </div>
+ <div class="modal fade" id="myModalPC" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change Password</h4>
+        </div>
+        <div class="modal-body">
+   <form method="post" action="/Admin/changepassword">
+
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="password" required name="currentpassword" id="CP">
+    <label class="mdl-textfield__label" for="CP">Current Password</label>
+  </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="password" required name="newpassword" id="NP">
+    <label class="mdl-textfield__label" for="NP">New Password</label>
+  </div>
+       <br>
+                      <button type="submit" class="mdl-button change">CHANGE</button>
+
+                </form>
+            
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+   
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Home</span>
+            
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addRS" onclick="create()">
+            <i class="material-icons" >add</i>
+          </button>
+                    </div>
+
+      </header>
+      <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="user.jpg" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span>ADMIN</span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn" id="signout">
+              <li class="mdl-menu__item">SIGN OUT</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800 ">
+          <a id="home" class="mdl-navigation__link mdl-color-text--white"><i class="mdl-color-text--white material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link  mdl-color-text--grey" href="/Admin/events"><i class="mdl-color-text--grey material-icons" role="presentation">party_mode</i>Events</a>
+            <a class="mdl-navigation__link  mdl-color-text--grey" href="/Admin/team"><i class="mdl-color-text--grey material-icons" role="presentation">people_alt</i>Team</a>
+             <a class="mdl-navigation__link  mdl-color-text--grey" href="/Admin/Achievments"><i class="mdl-color-text--grey material-icons" role="presentation">list</i>Achievments</a>
+            <a class="mdl-navigation__link mdl-color-text--grey"  href="/Admin/contacts" style = "cursor: pointer;"><i class="mdl-color-text--grey material-icons" role="presentation">call</i>Contact Forms</a> 
+            <a class="mdl-navigation__link mdl-color-text--grey" style = "cursor: pointer;" onclick="Changepassword()"><i class="mdl-color-text--grey material-icons" role="presentation">lock</i>Edit Password</a>
+
+        </nav>
+      </div>
+         <main class="mdl-layout__content">
+    <div class="page-content">
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" style="margin: auto;
+                                                                 margin-left: 130px;">
+             
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder"  >
+              <input class="mdl-textfield__input" type="text" id="search" placeholder="Search..">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
+            </div>
+          </div>
+        <div class="container c">
+     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="table-layout: auto;margin: auto;width:100%;height:auto;" id="myTable">
+  <thead >
+    <tr>
+      <th  style="text-align:center;vertical-align:middle;cursor:pointer;"> Name</th>
+      <th style="text-align:center;vertical-align:middle;cursor:pointer;"> Published</th>
+      <th style="text-align:center;vertical-align:middle;cursor:pointer;"> Date</th>
+      <th style="text-align:center;vertical-align:middle;cursor:pointer;"> Image</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tablebody">
+   
+       <%  var Keys = Object.keys(updatesdata) %>
+                <% Keys.forEach(function(Key){%>
+ <tr>
+          <td style="text-align:center;vertical-align:middle;cursor:pointer;"><%= updatesdata[Key].name %></td>
+          <td style="text-align:center;vertical-align:middle;cursor:pointer;"><%= updatesdata[Key].publish %></td>
+          <td style="text-align:center;vertical-align:middle;cursor:pointer;"><%= updatesdata[Key].date %></td>
+            <td style="text-align:center;vertical-align:middle;cursor:pointer;">
+               <img src="../../assets/images/<%=  updatesdata[Key].imgurl %>" style = " margin-left: 40px;margin-top : 40px;width:100px ; height : 100px">
+
+     
+     </td>  
+          <td><button class=" btn mdl-button mdl-js-button mdl-js-ripple-effect" type="button"onclick="profile('<%=Key%>')" >Profile</button></td>
+   </tr>
+
+                <%
+                })
+                
+                %>
+          <form id="form" method="post" action = "/Admin/updatedetails">
+            <input type="hidden" name="Pid" id="pid" value ="" style = "">
+              </form>
+<script>function profile(key) {
+
+     document.getElementById('pid').value = key;
+              document.getElementById('form').submit();
+
+
+    } </script>
+     
+  </tbody>
+        
+</table>
+                    </div>
+
+               <h6 style="width:100%;margin:10px;" id="count"></h6>
+
+      </div>
+  </main>
+    </div>
+
+         <script>
+           $("#signout").click(function(){
+    
+                      window.location.href = "/Admin/signout";
+           })
+               
+    function create() {
+         $('#myModal').modal('show');
+        
+    
+
+    }        
+
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
+               var password ;
+            var current = document.getElementById("current");
+
+function Changepassword() {
+     $('#myModalPC').modal('show');
+        
+}
+        </script>
+
+   
+  
+    
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+      
+  
+<script>
+    $(document).ready(function(){
+
+var rowCount = document.getElementById('myTable').rows.length;
+        document.getElementById("count").innerHTML = 'Total number of rows : '+rowCount;
+
+        
+    // code to read selected table row cell data (values).
+    $("#myTable").on('click','.btn',function(){
+         // get the current row
+         var currentRow=$(this).closest("tr"); 
+         
+         var col3=currentRow.find("td:eq(4)").text(); // get current row 3rd TD
+        
+        
+       // window.location.href = "projectprofile";
+    });
+});
+    
+    
+</script>
+      <script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Login</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/logo.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   
+    <link rel="apple-touch-icon-precomposed" href="images/logo.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/logo.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/logo.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+   
+  </head>
+  <body>
+   
+        <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+                                  <h4 class="modal-title">Forgot Password</h4>
+
+        </div>
+        <div class="modal-body">
+              <p>We have sent a code to your registered email,  roboticsclub53@gmail.com, please check.</p>
+<form action="/Admin/checkcode" method="post">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" required type="text"  name="code">
+    <label class="mdl-textfield__label" for="code">Code</label>
+  </div>
+
+<br>
+      <button type="submit" class="mdl-button signin" 
+         id="signin">Submit</button>
+      
+        </form>
+            
+  
+
+        </div>
+        </div>
+      
+    </div>
+  </div>
+      
+    
+    
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+      
+   <script type='text/javascript'>
+
+    $('#myModal').modal({
+    backdrop: 'static',
+    keyboard: false
+})
+    $(window).on('load',function(){
+     
+        $('#myModal').modal('show');
+    });
+     
+  
+</script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
